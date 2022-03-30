@@ -4,14 +4,15 @@ import random
 
 class Algorithm:
     @staticmethod
-    def __insertion_sort(a):
-        for i in range(1, len(a)):
-            key = a[i]
-            while i > 0 and a[i - 1] > key:
-                a[i] = a[i - 1]
-                i = i - 1
-            a[i] = key
-        return a
+    def __insertion_sort(tab):
+        for j in range(1, len(tab)):
+            key = tab[j]
+            i = j - 1
+            while i >= 0 and tab[i] > key:
+                tab[i + 1] = tab[i]
+                i -= 1
+            tab[i + 1] = key
+        return tab
 
     @staticmethod
     def insertion_sort(a):
@@ -24,15 +25,18 @@ class Algorithm:
         a[i], a[j] = a[j], a[i]
 
     @staticmethod
-    def __selection_sort(a):
-        i = len(a)
-        while i > 1:
-            mx = 0
-            for j in range(i):
-                if a[j] > a[mx]:
-                    mx = j
-            Algorithm.__swap(a, i - 1, mx)
-            i = i - 1
+    def __selection_sort(tab):
+        j = len(tab) - 1
+        while j >= 1:
+            maximum = j
+            i = j - 1
+            while i >= 0:
+                if tab[i] > tab[maximum]:
+                    maximum = i
+                i -= 1
+            tab[j], tab[maximum] = tab[maximum], tab[j]
+            j -= 1
+        return tab
 
     @staticmethod
     def selection_sort(a):
@@ -110,7 +114,6 @@ class Algorithm:
                 index = Algorithm.__partition(x, y, z, tp)
                 quick_sort_build(x, y, index)
                 quick_sort_build(x, index + 1, z)
-
         quick_sort_build(a, 0, len(a) - 1)
 
     @staticmethod
