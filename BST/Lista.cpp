@@ -67,12 +67,10 @@ int main()
     l.insert("8");
     l.print();
     cout << l.pusty() << endl;
- //   l.delet_e("123");
     l.print();
     l.insert("1234");
     l.delete_first();
     l.print();
-//    l.remove_last();
     l.print();
     cout << l[1]->val << endl;
     return 0;
