@@ -58,20 +58,20 @@ struct list {
     }
 };
 
-int main()
-{
-    list l;
-    cout << l.pusty() << endl;
-    l.insert("3");
-    l.insert("123");
-    l.insert("8");
-    l.print();
-    cout << l.pusty() << endl;
-    l.print();
-    l.insert("1234");
-    l.delete_first();
-    l.print();
-    l.print();
-    cout << l[1]->val << endl;
-    return 0;
-}
+// int main()
+// {
+//     list l;
+//     cout << l.pusty() << endl;
+//     l.insert("3");
+//     l.insert("123");
+//     l.insert("8");
+//     l.print();
+//     cout << l.pusty() << endl;
+//     l.print();
+//     l.insert("1234");
+//     l.delete_first();
+//     l.print();
+//     l.print();
+//     cout << l[1]->val << endl;
+//     return 0;
+// }
