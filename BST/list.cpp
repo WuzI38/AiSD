@@ -102,7 +102,6 @@ void Linkedlist::deleteList() {
         head = head->next;
         delete temp;
     }
-    return;
 } 
 
 void Linkedlist::search(int data) {
@@ -115,6 +114,6 @@ void Linkedlist::search(int data) {
             break;
         }
     }
-    if(!not_found && temp->data == data) cout << "Found it \n";
-    else cout << "Value does not exist \n";
+    //if(!not_found && temp->data == data) cout << "Found it \n";
+    //else cout << "Value does not exist \n";
 }

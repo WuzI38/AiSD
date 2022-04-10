@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -24,6 +25,8 @@ class TreeNode {
 
 class BST {
     TreeNode* head;
+    vector <int> numbers;
+
 public:
     BST() { head = NULL; }
     TreeNode* getHead() { return head; }
@@ -33,6 +36,8 @@ public:
     void printTreePostorder(TreeNode*);
     void deleteTree(TreeNode*);
     void search(int);
+    int getHeight(TreeNode*);
+    vector <int> getTree() { return numbers; }
 };
 
 void BST::insertNode(int data)  {
@@ -65,10 +70,9 @@ void BST::insertNode(int data)  {
 void BST::printTreeInorder(struct TreeNode *root) {
     if (root != NULL) {
         printTreeInorder(root->left);
-        cout << root->data << " ";
+        numbers.push_back(root->data);
         printTreeInorder(root->right);
     }
-    return;
 }
 
 void BST::printTreePostorder(struct TreeNode *root) {
@@ -77,7 +81,6 @@ void BST::printTreePostorder(struct TreeNode *root) {
         printTreePostorder(root->right);
         cout << root->data << " ";
     }
-    return;
 }
 
 void BST::deleteTree(struct TreeNode *root) {
@@ -86,7 +89,7 @@ void BST::deleteTree(struct TreeNode *root) {
         deleteTree(root->right);
         delete root;
     }
-    return;
+    head = NULL;
 }
 
 void BST::search(int x) {
@@ -97,5 +100,14 @@ void BST::search(int x) {
             ptr = ptr->left; else
             break;
     }
-    cout << ptr->data;
+    //cout << ptr->data;
+}
+
+int BST::getHeight(struct TreeNode* root) {
+    if (root == NULL)
+        return 0;
+    int leftHight = getHeight(root->left);
+    int rightHight = getHeight(root->right);
+    int max = (rightHight > leftHight) ? rightHight + 1 : leftHight + 1;
+    return max;
 }
