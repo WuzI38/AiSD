@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <string>
 #include <fstream>
+#include <algorithm>
+#include <random>
 
 using namespace std;
 
@@ -51,10 +53,12 @@ class Graph {
 void Graph::print() {
     for(int i = 0; i < this->vertices; i++) {
         for(int j = 0; j < this->vertices; j++) {
-            cout << this->matrix[i][j] << " ";
+            cout << this->matrix[i][j] << ", ";
         }
         cout << endl;
     }
+
+    
 }
 
 void Graph::generate(float min_density) { //Yes, I know, it sucks
@@ -64,18 +68,29 @@ void Graph::generate(float min_density) { //Yes, I know, it sucks
     int max_degree = this->vertices - 1 - ((this->vertices - 1) % 2) - 2;
     int expandable = true;
 
-    degrees[0] = 2; // Count degree of each vertex
+    // Generate random permutation for Hamilton cycle + initialize degrees
+    int* permut = (int*) malloc(this->vertices * sizeof(int));
+
+    for(int i = 0; i < this->vertices; i++) {
+        permut[i] = i;
+        degrees[i] = 2;
+    }
+
+    random_device rd;
+    mt19937 g(rd());
+    shuffle(&permut[0], &permut[this->vertices], g);
 
     // Start with Hamilton cycle
     for(int i = 0; i < this->vertices - 1; i++) {
-        this->matrix[i][i + 1] = 1;
-        this->matrix[i + 1][i] = 1;
-        degrees[i + 1] = 2;
+        this->matrix[permut[i]][permut[i + 1]] = 1;
+        this->matrix[permut[i + 1]][permut[i]] = 1;
     }
 
     // Create connection between first and last vertex
-    this->matrix[0][this->vertices - 1] = 1;
-    this->matrix[this->vertices - 1][0] = 1;
+    this->matrix[permut[0]][permut[this->vertices - 1]] = 1;
+    this->matrix[permut[this->vertices - 1]][permut[0]] = 1;
+
+    free(permut);
 
     // Create array of vertices to connect
     int cv[3]; 
